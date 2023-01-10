@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
@@ -38,16 +39,48 @@ def save_info():
   print(the_website)
   the_email = email.get()
   the_password = password.get()
+
+  new_data = {
+    the_website: {
+      "email": the_email,
+      "password": the_password
+    }
+  }
+
   if the_website == '' or the_email == '' or the_password == '':
     messagebox.showinfo("Oops", "Please don't leave any field empty.")
   else:
     messagebox.askokcancel(title=website, message=f"this are the details entered: \nEmail: {email.get()} \nPassword: {password.get()} \nIs it okay to save?")
     line = f"{the_website} | {the_email} | {the_password}\n"
-    with open("my_passwords.txt", 'a') as file:
-      file.write(line)
-      website.delete(0, END)
-      password.delete(0, END)
+    try:
+      with open("data.json", "r") as data_file:
+        data = json.load(data_file)
+        data.update(new_data)
+    except:
+      data = new_data
+    finally:
+      with open("data.json", 'w') as data_file:
+        json.dump(data, data_file, indent=4)
+        # file.write(line)
+        website.delete(0, END)
+        password.delete(0, END)
 
+def search():
+  the_website = website.get()
+  try:
+    with open("data.json", 'r') as data_file:
+      data = json.load(data_file)
+      if the_website in data:
+        print("Yeah we got it.")
+        element = data[the_website]
+        the_email = element["email"]
+        the_password = element["password"]
+        print(the_password)
+        messagebox.showinfo(title="We got it!", message=f"Email: {the_email}\nPassword: {the_password}")
+      else:
+        messagebox.showerror(title="Not found!", message=f"Sorry, there is password information associated with {the_website}")
+  except:
+    messagebox.showerror(title="Not found!", message="No Data File Found")
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -70,9 +103,12 @@ email_label.grid(column=0, row=2)
 password_label = Label(text="Password:")
 password_label.grid(column=0, row=3)
 
-website = Entry(width=35)
+website = Entry(width=30)
 website.grid(column=1, row=1, columnspan=2)
 website.focus()
+
+search = Button(text="Search", command=search, padx=15)
+search.grid(column=2, row=1)
 
 email = Entry(width=35)
 email.grid(column=1, row=2, columnspan=2)
