@@ -1,12 +1,12 @@
+# Password Generator Project
+
 from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
 import json
-# ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
-# ---------------------------- SAVE PASSWORD ------------------------------- #
-# Password Generator Project
+
 def generate_password():
   letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
              'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
