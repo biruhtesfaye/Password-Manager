@@ -1,2 +1,2 @@
 # Password-Manager
-This Python GUI program helps to generate and save passwords with their respective website and username. We don't need to look for a third party password manager.
+This Python GUI program helps to generate and save passwords with their respective website and username. We don't need to look for a third party password manager. In addition to that it also has a feature to search if there is a password given for a particular website. If it get a previously saved password related to the website address, It will retrieve the username/email/ and the password to the user.
