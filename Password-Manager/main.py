@@ -112,7 +112,7 @@ search.grid(column=2, row=1)
 
 email = Entry(width=35)
 email.grid(column=1, row=2, columnspan=2)
-email.insert(0, "biruhtesfaye@gmail.com")
+email.insert(0, "placeholder-email@gmail.com")
 
 password = Entry(width=21)
 password.grid(column=1, row=3)
